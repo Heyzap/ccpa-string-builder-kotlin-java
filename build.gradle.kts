@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.3.61"
-    id("com.jfrog.bintray") version "1.7"
+    id("com.jfrog.bintray") version "1.8.4"
     maven
     `maven-publish`
 }
@@ -21,7 +21,7 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        register("maven", MavenPublication::class) {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
@@ -39,6 +39,7 @@ bintray {
     user = if (project.hasProperty("bintrayUser")) project.property("bintrayUser") as String else System.getenv("BINTRAY_USER")
     key = if (project.hasProperty("bintrayApiKey")) project.property("bintrayApiKey") as String else System.getenv("BINTRAY_API_KEY")
     setPublications("maven")
+    publish = true
     pkg.apply {
         repo = "marketplace"
         name = project.name

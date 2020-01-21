@@ -42,7 +42,7 @@ bintray {
     pkg.apply {
         repo = "marketplace"
         name = project.name
-        userOrg = user
+        userOrg = "fyber"
         setLicenses("MIT")
         vcsUrl = "https://github.com/Heyzap/ccpa-string-builder-kotlin-java"
         version.apply {

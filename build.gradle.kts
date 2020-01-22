@@ -26,7 +26,7 @@ publishing {
             artifactId = project.name
             version = project.version.toString()
             artifact(tasks.jar.get().outputs.files.first()) {
-                classifier = "jar"
+
             }
             artifact(tasks.kotlinSourcesJar.get().outputs.files.first()) {
                 classifier = "sources"
@@ -51,6 +51,8 @@ bintray {
         }
     }
 }
+
+tasks.findByName("generatePomFileForMavenPublication")?.dependsOn(tasks.assemble)
 
 tasks {
     assemble {

@@ -1,4 +1,4 @@
-CCPA String Builder - a gradle plugin
+CCPA String Builder - utility helper library
 =======================================================================
 
 Dependency library for android (or vanilla Java/Kotlin) for creating a California Consumer Privacy Act privacy string.

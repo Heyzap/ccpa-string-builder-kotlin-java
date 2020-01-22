@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.utils.addToStdlib.safeAs
+
 plugins {
     kotlin("jvm") version "1.3.61"
     id("com.jfrog.bintray") version "1.8.4"
@@ -30,6 +32,25 @@ publishing {
             }
             artifact(tasks.kotlinSourcesJar.get().outputs.files.first()) {
                 classifier = "sources"
+            }
+            pom.withXml {
+                val dependenciesNode = asNode().appendNode("dependencies")
+                configurations.implementation.allDependencies.forEach {
+                    // Exclude filetree dependencies.
+                    if (it.name != "unspecified") {
+                        val dependencyNode = dependenciesNode.appendNode("dependency")
+                        dependencyNode.apply {
+                            appendNode("groupId", it.group)
+                            appendNode("artifactId", it.name)
+                            appendNode("version", it.version)
+                        }
+                        it.safeAs<ModuleDependency>()?.let { moduleDep ->
+                            if (moduleDep.artifacts.count() > 0) {
+                                dependencyNode.appendNode("type", moduleDep.artifacts.toList()[0].type)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

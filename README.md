@@ -7,7 +7,9 @@ Dependency library for android (or vanilla Java/Kotlin) for creating a Californi
 add the following to your app’s project level build.gradle file inside the repositories section:
 ```
 repositories {
-    jcenter()
+    maven {
+        url  "https://fyber.bintray.com/marketplace" 
+    }
 }
 ```
 
